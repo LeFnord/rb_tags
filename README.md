@@ -1,15 +1,8 @@
-fork of: [iamkristian/ctags_ruby](https://github.com/iamkristian/ctags_ruby)
+shamless inspired by: [iamkristian/ctags_ruby](https://github.com/iamkristian/ctags_ruby)
 
 # RbTags
 
-Generate ctags files for your ruby project and your bundled gems.
-
-It will generate a `.tags` file for the project files and a `.gemtags`
-for the dependencies, based upon you `Gemfile`.
-
-It could be consumed by `vim` or `emacs`, for additional functionality: `rb_tags -h`.
-
-It has the ability to search for a tag and open the referenced file in environment editor.
+(It should) Generate ctags files for your ruby project and your bundled gems.
 
 ## Installation
 
@@ -46,4 +39,5 @@ Cd into your project and simply type
 LeFnord
 
 ## License
-MIT
+
+see [License](LICENSE.txt)
