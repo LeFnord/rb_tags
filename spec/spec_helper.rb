@@ -1,5 +1,8 @@
 require 'rspec'
 require 'rspec/mocks'
+require "parslet/rig/rspec"
+
+require 'parser_helper'
 
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'rb_tags'

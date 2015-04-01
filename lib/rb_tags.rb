@@ -1,7 +1,10 @@
 require 'awesome_print'
+require 'parslet'
+require 'parslet/convenience'
 require 'rb_tags/version.rb'
 
 require 'rb_tags/generate_tags'
+require 'rb_tags/parser'
 require 'rb_tags/tags'
 require 'rb_tags/gem_tags'
 require 'rb_tags/json'

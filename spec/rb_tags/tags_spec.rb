@@ -17,15 +17,14 @@ describe Tags do
   end
 
   describe '#tag' do
-    before do
-      # allow(subject).to receive(:tag)
-    end
     it { expect(subject).to respond_to(:tag) }
-    it { expect(subject.tags).to be_a Array }
 
     it 'tags a directory' do
       subject.tag
+      pp subject.tags
       expect(subject.tags.length).to be > 1
+      expect(subject.tags).to be_a Hash
+      expect(subject.tags.values.first.first).to include(:type, :line, :path, :definition)
     end
   end
 end

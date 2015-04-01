@@ -8,12 +8,9 @@ class Tags
     @filename = filename
     @format   = format
     @mask     = mask
-    @tags = []
   end
 
   def tag
-    FileUtils.cd(@dir) do |dir|
-      @tags = find_expressions(dir, @mask)
-    end
+    FileUtils.cd(@dir) { |dir| @tags = find_expressions(dir, @mask) }
   end
 end
