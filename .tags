@@ -1,0 +1,110 @@
+---
+Foo:
+- :type: class
+  :line: '1'
+  :path: "/Users/le_fnord/sandbox/github/rb_tags/spec/rb_tags_spec.rb"
+  :definition: class Foo
+GemTags:
+- :type: class
+  :line: '1'
+  :path: "/Users/le_fnord/sandbox/github/rb_tags/lib/rb_tags/gem_tags.rb"
+  :definition: class GemTags
+GenerateTags:
+- :type: module
+  :line: '1'
+  :path: "/Users/le_fnord/sandbox/github/rb_tags/lib/rb_tags/concerns/generate_tags.rb"
+  :definition: module GenerateTags
+Parser:
+- :type: class
+  :line: '1'
+  :path: "/Users/le_fnord/sandbox/github/rb_tags/lib/rb_tags/concerns/parser.rb"
+  :definition: class Parser < Parslet::Parser
+ParserTransform:
+- :type: class
+  :line: '34'
+  :path: "/Users/le_fnord/sandbox/github/rb_tags/lib/rb_tags/concerns/parser.rb"
+  :definition: class ParserTransform < Parslet::Transform
+RbTags:
+- :type: module
+  :line: '1'
+  :path: "/Users/le_fnord/sandbox/github/rb_tags/lib/rb_tags/version.rb"
+  :definition: module RbTags
+- :type: module
+  :line: '15'
+  :path: "/Users/le_fnord/sandbox/github/rb_tags/lib/rb_tags.rb"
+  :definition: module RbTags
+Tags:
+- :type: class
+  :line: '1'
+  :path: "/Users/le_fnord/sandbox/github/rb_tags/lib/rb_tags/tags.rb"
+  :definition: class Tags
+YamlTasks:
+- :type: module
+  :line: '1'
+  :path: "/Users/le_fnord/sandbox/github/rb_tags/lib/rb_tags/concerns/yaml_tasks.rb"
+  :definition: module YamlTasks
+find_expressions:
+- :type: method
+  :line: '2'
+  :path: "/Users/le_fnord/sandbox/github/rb_tags/lib/rb_tags/concerns/generate_tags.rb"
+  :definition: def find_expressions(dir,mask)
+gem_file:
+- :type: method
+  :line: '16'
+  :path: "/Users/le_fnord/sandbox/github/rb_tags/lib/rb_tags/gem_tags.rb"
+  :definition: def gem_file
+generate:
+- :type: method
+  :line: '16'
+  :path: "/Users/le_fnord/sandbox/github/rb_tags/lib/rb_tags.rb"
+  :definition: 'def generate(gems: false)'
+generate_hash:
+- :type: method
+  :line: '18'
+  :path: "/Users/le_fnord/sandbox/github/rb_tags/lib/rb_tags/concerns/generate_tags.rb"
+  :definition: def generate_hash(parsed_expression)
+initialize:
+- :type: method
+  :line: '5'
+  :path: "/Users/le_fnord/sandbox/github/rb_tags/lib/rb_tags/gem_tags.rb"
+  :definition: 'def initialize(filename: ".gem_tags")'
+- :type: method
+  :line: '8'
+  :path: "/Users/le_fnord/sandbox/github/rb_tags/lib/rb_tags/tags.rb"
+  :definition: 'def initialize(dir: Dir.getwd, save: false, read: false, filename:
+    ".tags")'
+parse_expression_line:
+- :type: method
+  :line: '8'
+  :path: "/Users/le_fnord/sandbox/github/rb_tags/lib/rb_tags/concerns/generate_tags.rb"
+  :definition: def parse_expression_line
+read_from_yaml_file:
+- :type: method
+  :line: '4'
+  :path: "/Users/le_fnord/sandbox/github/rb_tags/lib/rb_tags/concerns/yaml_tasks.rb"
+  :definition: def read_from_yaml_file
+samples:
+- :type: method
+  :line: '1'
+  :path: "/Users/le_fnord/sandbox/github/rb_tags/spec/parser_helper.rb"
+  :definition: def samples
+store:
+- :type: method
+  :line: '12'
+  :path: "/Users/le_fnord/sandbox/github/rb_tags/lib/rb_tags/concerns/yaml_tasks.rb"
+  :definition: def store
+tag:
+- :type: method
+  :line: '13'
+  :path: "/Users/le_fnord/sandbox/github/rb_tags/lib/rb_tags/tags.rb"
+  :definition: def tag
+traverse_gemfile:
+- :type: method
+  :line: '9'
+  :path: "/Users/le_fnord/sandbox/github/rb_tags/lib/rb_tags/gem_tags.rb"
+  :definition: def traverse_gemfile
+write_to_yaml:
+- :type: method
+  :line: '8'
+  :path: "/Users/le_fnord/sandbox/github/rb_tags/lib/rb_tags/concerns/yaml_tasks.rb"
+  :definition: 'def write_to_yaml this: {}'
