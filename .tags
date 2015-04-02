@@ -45,7 +45,7 @@ YamlTasks:
   :definition: module YamlTasks
 find_expressions:
 - :type: method
-  :line: '2'
+  :line: '3'
   :path: "/Users/le_fnord/sandbox/github/rb_tags/lib/rb_tags/concerns/generate_tags.rb"
   :definition: def find_expressions(dir,mask)
 gem_file:
@@ -60,9 +60,9 @@ generate:
   :definition: 'def generate(gems: false)'
 generate_hash:
 - :type: method
-  :line: '18'
+  :line: '20'
   :path: "/Users/le_fnord/sandbox/github/rb_tags/lib/rb_tags/concerns/generate_tags.rb"
-  :definition: def generate_hash(parsed_expression)
+  :definition: def generate_hash
 initialize:
 - :type: method
   :line: '5'
@@ -75,12 +75,12 @@ initialize:
     ".tags")'
 parse_expression_line:
 - :type: method
-  :line: '8'
+  :line: '9'
   :path: "/Users/le_fnord/sandbox/github/rb_tags/lib/rb_tags/concerns/generate_tags.rb"
   :definition: def parse_expression_line
 read_from_yaml_file:
 - :type: method
-  :line: '4'
+  :line: '2'
   :path: "/Users/le_fnord/sandbox/github/rb_tags/lib/rb_tags/concerns/yaml_tasks.rb"
   :definition: def read_from_yaml_file
 samples:
@@ -90,7 +90,7 @@ samples:
   :definition: def samples
 store:
 - :type: method
-  :line: '12'
+  :line: '10'
   :path: "/Users/le_fnord/sandbox/github/rb_tags/lib/rb_tags/concerns/yaml_tasks.rb"
   :definition: def store
 tag:
@@ -105,6 +105,6 @@ traverse_gemfile:
   :definition: def traverse_gemfile
 write_to_yaml:
 - :type: method
-  :line: '8'
+  :line: '6'
   :path: "/Users/le_fnord/sandbox/github/rb_tags/lib/rb_tags/concerns/yaml_tasks.rb"
   :definition: 'def write_to_yaml this: {}'

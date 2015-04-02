@@ -1,6 +1,4 @@
 module YamlTasks
-  module_function
-
   def read_from_yaml_file
     YAML.load_file(store) if File.exist?(store)
   end
