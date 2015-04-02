@@ -21,7 +21,7 @@ in your path.
 
 ## Usage
 
-Cd into your project and simply type
+Cd into your project and simply type (not yet implemented)
 
 `rb_tags`
 
