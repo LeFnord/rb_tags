@@ -8,6 +8,6 @@ module YamlTasks
   end
 
   def store
-    store = File.join(@dir,@filename)
+    store = File.join(Dir.getwd,@filename)
   end
 end

@@ -2,7 +2,7 @@ module GenerateTags
   # find ctags and split in single lines
   def find_expressions(dir,mask)
     @found_tags = `find #{dir} | ctags -x -L -`.split("\n")
-    parse_expression_line.generate_hash
+    parse_expression_line.and.generate_hash
   end
 
   #parse found expression line
@@ -30,5 +30,9 @@ module GenerateTags
     end
 
     tags
+  end
+
+  def and
+    self
   end
 end
