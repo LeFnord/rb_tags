@@ -7,29 +7,18 @@ module GenerateTags
 
   #parse found expression line
   def parse_expression_line
-    @parsed_expression = []
+    @parsed_expressions = []
     @found_tags.each do |tag_line|
       parsed_line = Parser.new.parse(tag_line)
-      @parsed_expression << ParserTransform.new.apply(parsed_line)
+      @parsed_expressions << ParserTransform.new.apply(parsed_line)
     end
 
     self
   end
 
-  # convert array of hashes into single hash
+  # converts array of hashes into single hash
   def generate_hash
-    tags = {}
-    @parsed_expression.each do |expression|
-      key   = expression.keys.first
-      value = expression.values.last
-      if tags.key?(key)
-        tags[key] << value
-      else
-        tags[key] = [value]
-      end
-    end
-
-    tags
+    @parsed_expressions.group_by{|x| x[:name]}
   end
 
   def and

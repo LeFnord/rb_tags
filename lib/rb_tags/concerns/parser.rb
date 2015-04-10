@@ -39,13 +39,11 @@ class ParserTransform < Parslet::Transform
       definition: simple(:definition)
       ) {
         {
-          name.str =>
-          {
-            type: type.str,
-            line: line.str,
-            path: path.str,
-            definition: definition.str
-          }
+          name: name.str,
+          type: type.str,
+          line: line.str,
+          path: path.str,
+          definition: definition.str
         }
       }
 end
