@@ -18,7 +18,7 @@ module GenerateTags
 
   # converts array of hashes into single hash
   def generate_hash
-    @parsed_expressions.group_by{|x| x[:name]}
+    @parsed_expressions.group_by{|x| x[:name] }
   end
 
   def and
