@@ -10,7 +10,6 @@ require 'rb_tags/concerns/parser'
 require 'rb_tags/concerns/yaml_tasks'
 
 require 'rb_tags/tags'
-require 'rb_tags/gem_tags'
 
 module RbTags
   def generate(options={})
@@ -47,7 +46,7 @@ module RbTags
   private
   def build_gem_list
     if File.exist? gem_file
-      @gem_list = Bundler.load.specs.map(&:full_gem_path) - [@options[:dir]]
+      @gem_list = Bundler.load.specs.map(&:full_gem_path) - [default_dir]
     end
   end
 

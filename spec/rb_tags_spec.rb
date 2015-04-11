@@ -51,9 +51,9 @@ describe RbTags do
       end
 
       describe '#gem_list' do
-        # let(:bar) { foo.generate(gems: true) }
-        # it { expect(bar.gem_list).to be_a Array }
-        # it { expect(bar.gem_list).to_not include(bar.options[:dir])}
+        let(:bar) { foo.send(:build_gem_list) }
+        it { expect(bar).to be_a Array }
+        it { expect(bar).to_not include(foo.send(:default_dir))}
       end
     end
   end
