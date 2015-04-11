@@ -13,10 +13,59 @@ require 'rb_tags/tags'
 require 'rb_tags/gem_tags'
 
 module RbTags
-  def generate(gems: false)
-    @gems   = gems
-    return @gems
+  def generate(options={})
+    set_options(options)
+
+    tags = Tags.new(default_dir)
+    tags.tag
+
+    if @options[:gems]
+      build_gem_list.each do |dir|
+        gem_tags = Tags.new(dir)
+        gem_tags.tag
+        tags.add(gem_tags.tags)
+      end
+    end
+
+    tags.save
+  end
+
+  def show
+    tags = Tags.new.read
+    ap tags
+  end
+
+  # attributes
+  def options
+    @options
+  end
+
+  def gem_list
+    @gem_list
   end
 
   private
+  def build_gem_list
+    if File.exist? gem_file
+      @gem_list = Bundler.load.specs.map(&:full_gem_path) - [@options[:dir]]
+    end
+  end
+
+  def gem_file
+    File.join(default_dir, './Gemfile')
+  end
+
+  def set_options(options)
+    @options = options.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
+    @options.delete(:dir) if @options[:dir].nil?
+    @options.merge!(defaults) { |key, opt, default| opt }
+  end
+
+  def defaults
+    { gems: true }
+  end
+
+  def default_dir
+    Dir.getwd
+  end
 end

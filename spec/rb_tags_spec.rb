@@ -14,25 +14,47 @@ describe RbTags do
 
   context Foo do
     let(:foo) { Foo.new }
+
     describe '#generate' do
-      it { expect(foo.generate).to eq(false) }
-      it { expect(foo.generate(gems: true)).to eq(true) }
+      describe 'do it' do
+        it 'generates' do
+          # expect { foo.generate }.to_not raise_error
+        end
+        it 'generates with gems true' do
+          # expect { foo.generate(gems: true) }.to_not raise_error
+        end
+      end
     end
 
     describe 'private methods' do
-      # describe '#do_tags' do
-      #   let(:tags) { foo.send(:do_tags) }
-      #
-      #   it { expect(tags).to be_a Tags}
-      #   it { expect(tags).to respond_to(:filename) }
-      #   it { expect(tags).to respond_to(:mask) }
-      # end
-      #
-      # describe '#do_gem_tags' do
-      #   let(:gem_tags) { foo.send(:do_gem_tags) }
-      #
-      #   it { expect(gem_tags).to be_a GemTags}
-      # end
+      describe '#set_options' do
+        describe 'defaults' do
+          let(:tags) { foo.send(:set_options, {})}
+          let(:defaults) { foo.send(:defaults)}
+
+          it { expect { tags }.to_not raise_error }
+          it { expect(tags).to eq defaults }
+        end
+
+        describe 'set gems' do
+          let(:options) { {gems: true} }
+          let(:tag_w_options) { foo.send(:set_options, options)}
+          it { expect(tag_w_options).to eq options }
+        end
+
+        describe 'form gli' do
+          let(:income) { { "dir"  => "..", :dir   => "..", "save" => true, :save  => true, "gems" => true, :read  => false } }
+          let(:options) { foo.send(:set_options, income)}
+          let(:expected) { { :dir   => "..", :save  => true, :gems => true, :read  => false } }
+          it { expect(options).to eq expected }
+        end
+      end
+
+      describe '#gem_list' do
+        # let(:bar) { foo.generate(gems: true) }
+        # it { expect(bar.gem_list).to be_a Array }
+        # it { expect(bar.gem_list).to_not include(bar.options[:dir])}
+      end
     end
   end
 end

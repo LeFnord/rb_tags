@@ -2,21 +2,18 @@ class Parser < Parslet::Parser
   #atomic rules
   rule(:space) { match['[:space:]'] }
   rule(:spaces) { space.repeat(1) }
-  rule(:word) { match['[:alpha:]'].repeat(1) }
+  rule(:word) { match['\w'].repeat(1) }
   rule(:line) { match['[:digit:]'].repeat(1) }
   rule(:separator) { str('/') }
 
   # composing rules
   ## names, word-or_foo
-  rule(:name_adds) { match['_-'] >> word.repeat(1) }
-  rule(:name) { word.repeat(1) >> name_adds.repeat }
-
-  ## filename, word_or-foo.ext
-  rule(:file) { name.repeat(1) >> str('.') >> word.repeat(1) }
+  rule(:name_adds) { match['$_-'] >> word.repeat(1) }
+  rule(:simple_name) { word.repeat(1) >> name_adds.repeat }
+  rule(:name) { match['$'].maybe >> simple_name >> match['\S'].maybe | match['\W'].repeat(1,3)}
 
   ## part of path, word/
-  rule(:path_part) { name.repeat(1) >> separator }
-  rule(:path) { separator >> path_part.repeat >> file }
+  rule(:path) { separator >> match['\S'].repeat(1) }
 
   ## full input
   rule(:whole_line) {

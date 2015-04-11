@@ -2,16 +2,36 @@ class Tags
   include GenerateTags
   include YamlTasks
 
-  attr_reader :dir, :save, :read
+  attr_reader :dir
   attr_reader :tags
 
-  def initialize(dir: Dir.getwd, save: false, read: false)
-    @dir, @save, @read = dir, save, read
-    @tags = read_from_yaml_file if @read
+  def initialize(dir = Dir.getwd)
+    @dir = dir
   end
 
   def tag
     FileUtils.cd(@dir) { |dir| @tags = find_expressions(dir, @mask) }
-    write_to_yaml(this: @tags) if @save
+  end
+
+  def add(tags)
+    tags.each do |key,value|
+      if self.tags.key?(key)
+        self.tags[key] << value
+      else
+        self.tags[key] = value
+      end
+    end
+  end
+
+  def save
+    write_to_yaml(this: @tags)
+  end
+
+  def read
+    @tags = read_from_yaml_file
+  end
+
+  def self.dummy
+    'dummy'
   end
 end

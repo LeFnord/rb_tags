@@ -26,10 +26,10 @@ describe Parser do
     describe '#word' do
       it { expect(parser.word).to parse('tags') }
       it { expect(parser.word).to parse('RbTags') }
+      it { expect(parser.word).to parse('rb_tags') }
 
       it { expect(parser.word).not_to parse(' ') }
       it { expect(parser.word).not_to parse("\t") }
-      it { expect(parser.word).not_to parse('rb_tags') }
       it { expect(parser.word).not_to parse('rb_tags/foo') }
       it { expect(parser.word).not_to parse('RbTags::Foo') }
     end
@@ -67,17 +67,6 @@ describe Parser do
       it { expect(parser.name).not_to parse('RbTags::Foo::Bar') }
       it { expect(parser.name).not_to parse('rb_tags/foo') }
       it { expect(parser.name).not_to parse('rb_tags.foo') }
-    end
-
-    describe '#file' do
-      it { expect(parser.file).to parse('tags.rb') }
-      it { expect(parser.file).to parse('RbTags.rb') }
-      it { expect(parser.file).to parse('rb_tags.rb') }
-      it { expect(parser.file).to parse('rb_tags_foo.rb') }
-
-      it { expect(parser.file).not_to parse('RbTags::Foo.rb') }
-      it { expect(parser.file).not_to parse('RbTags::Foo::Bar.rb') }
-      it { expect(parser.file).not_to parse('rb_tags/foo.rb') }
     end
 
     describe '#path' do
