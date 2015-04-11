@@ -1,8 +1,6 @@
-shamless inspired by: [iamkristian/ctags_ruby](https://github.com/iamkristian/ctags_ruby)
-
 # RbTags
 
-(It should) Generate ctags files for your ruby project and your bundled gems.
+Generate tags file for your ruby project and bundled gems, based on ctags.
 
 ## Installation
 
@@ -21,9 +19,31 @@ in your path.
 
 ## Usage
 
-Cd into your project and simply type (not yet implemented)
+`cd` into your project and simple type
 
-`rb_tags`
+`rb_tags -h`
+
+```
+
+    NAME
+        rb_tags - Describe your application here
+
+    SYNOPSIS
+        rb_tags [global options] command [command options] [arguments...]
+
+    VERSION
+        0.0.5
+
+    GLOBAL OPTIONS
+        --help    - Show this message
+        --version - Display the program version
+
+    COMMANDS
+        help - Shows a list of commands or help for one command
+        show - show esisting tags
+        tag  - tags a given directory
+
+```
 
 ## Contributing
 
