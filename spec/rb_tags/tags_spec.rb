@@ -6,22 +6,19 @@ describe Tags do
   it { expect(subject).to respond_to(:dir) }
   it { expect(subject).to respond_to(:save) }
   it { expect(subject).to respond_to(:read) }
-  it { expect(subject).to respond_to(:filename) }
   it { expect(subject).to respond_to(:tags) }
 
   describe 'defaults' do
     it { expect(subject.dir).to eq Dir.getwd }
     it { expect(subject.save).to eq false }
     it { expect(subject.read).to eq false }
-    it { expect(subject.filename).to eq '.tags' }
   end
 
   describe 'with params' do
-    subject { Tags.new(dir: '.', save: true, read: true, filename: 'foo')}
+    subject { Tags.new(dir: '.', save: true, read: true)}
     it { expect(subject.dir).to eq '.' }
     it { expect(subject.save).to eq true }
     it { expect(subject.read).to eq true }
-    it { expect(subject.filename).to eq 'foo' }
   end
 
   describe '#tag' do
@@ -47,7 +44,7 @@ describe Tags do
     it 'do it' do
       subject = Tags.new(save: true)
       subject.tag
-      tag_file = File.join(subject.dir, subject.filename)
+      tag_file = File.join(subject.dir, '.tags')
       expect(File.exist?(tag_file)).to eq true
     end
   end
@@ -56,7 +53,7 @@ describe Tags do
     it 'do it' do
       subject = Tags.new(save: true)
       subject.tag
-      tag_file = File.join(subject.dir, subject.filename)
+      tag_file = File.join(subject.dir, '.tags')
       expect(File.exist?(tag_file)).to eq true
       object = Tags.new(read: true)
       expect(object.tags).to eq subject.tags

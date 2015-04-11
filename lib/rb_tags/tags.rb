@@ -2,11 +2,11 @@ class Tags
   include GenerateTags
   include YamlTasks
 
-  attr_reader :dir, :filename, :save, :read
+  attr_reader :dir, :save, :read
   attr_reader :tags
 
-  def initialize(dir: Dir.getwd, save: false, read: false, filename: ".tags")
-    @dir, @save, @read, @filename = dir, save, read, filename
+  def initialize(dir: Dir.getwd, save: false, read: false)
+    @dir, @save, @read = dir, save, read
     @tags = read_from_yaml_file if @read
   end
 
