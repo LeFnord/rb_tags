@@ -30,8 +30,9 @@ module RbTags
   end
 
   def show
-    tags = Tags.new.read
-    ap tags
+    get_existend_tags
+    ap @tags.tags
+    ap @tags.tags.length
   end
 
   # attributes
@@ -66,5 +67,10 @@ module RbTags
 
   def default_dir
     Dir.getwd
+  end
+
+  def get_existend_tags
+    @tags ||= Tags.new
+    @tags.read
   end
 end

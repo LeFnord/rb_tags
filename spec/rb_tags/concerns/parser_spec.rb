@@ -62,6 +62,9 @@ describe Parser do
       it { expect(parser.name).to parse('rb_tags_foo') }
       it { expect(parser.name).to parse('rb-tags') }
       it { expect(parser.name).to parse('rb-tags_foo') }
+      it { expect(parser.name).to parse('<<') }
+      it { expect(parser.name).to parse('$retint') }
+      it { expect(parser.name).to parse('L_darwin64_struct_ret_by_value_p$stub') }
 
       it { expect(parser.name).not_to parse('RbTags::Foo') }
       it { expect(parser.name).not_to parse('RbTags::Foo::Bar') }
@@ -89,6 +92,8 @@ describe Parser do
       it { expect(parser.path).to parse('/barFoo/bar/foo_bar-foo/RbTags.rb') }
       it { expect(parser.path).to parse('/barFoo/bar/foo_bar-foo/rb_tags.rb') }
       it { expect(parser.path).to parse('/barFoo/bar/foo_bar-foo/rb_tags_foo.rb') }
+
+      it { expect(parser.path).to parse('/usr/local/var/rbenv/versions/2.2.1/lib/ruby/gems/2.2.0/gems/rake-10.4.2/lib/rake/file_list.rb') }
     end
   end
 

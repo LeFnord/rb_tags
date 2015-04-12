@@ -16,7 +16,7 @@ class Tags
   def add(tags)
     tags.each do |key,value|
       if self.tags.key?(key)
-        self.tags[key] << value
+        self.tags[key] += value
       else
         self.tags[key] = value
       end
