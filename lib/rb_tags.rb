@@ -31,7 +31,7 @@ module RbTags
 
   def show
     get_existend_tags
-    ap @tags.tags
+    ap @tags.names
     ap @tags.tags.length
   end
 

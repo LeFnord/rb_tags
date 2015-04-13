@@ -2,8 +2,7 @@ class Tags
   include GenerateTags
   include YamlTasks
 
-  attr_reader :dir
-  attr_reader :tags
+  attr_reader :dir, :tags, :names
 
   def initialize(dir = Dir.getwd)
     @dir = dir
@@ -29,6 +28,10 @@ class Tags
 
   def read
     @tags = read_from_yaml_file
+  end
+
+  def names
+    @names ||= self.tags.keys
   end
 
   def self.dummy

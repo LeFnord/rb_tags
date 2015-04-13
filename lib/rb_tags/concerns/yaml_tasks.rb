@@ -7,6 +7,7 @@ module YamlTasks
     File.open(store, 'w') {|out| YAML.dump this, out}
   end
 
+  private
   def store
     store = File.join(Dir.getwd,".tags")
   end
