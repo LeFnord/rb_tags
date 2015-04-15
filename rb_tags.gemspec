@@ -19,7 +19,6 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler"
   spec.add_development_dependency "rspec"
   spec.add_development_dependency "guard-rspec"
   spec.add_development_dependency "guard-bundler"
@@ -27,8 +26,10 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "terminal-notifier-guard"
   spec.add_development_dependency "awesome_print"
 
+  spec.add_runtime_dependency "bundler"
   spec.add_runtime_dependency "colorize"
   spec.add_runtime_dependency "rake"
   spec.add_runtime_dependency "parslet"
+  spec.add_runtime_dependency "parallel"
   spec.add_runtime_dependency "gli"
 end

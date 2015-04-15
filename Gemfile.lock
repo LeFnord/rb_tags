@@ -2,8 +2,10 @@ PATH
   remote: .
   specs:
     rb_tags (0.0.5)
+      bundler
       colorize
       gli
+      parallel
       parslet
       rake
 
@@ -49,6 +51,7 @@ GEM
     notiffany (0.0.6)
       nenv (~> 0.1)
       shellany (~> 0.0)
+    parallel (1.4.1)
     parslet (1.7.0)
       blankslate (>= 2.0, <= 4.0)
     pry (0.10.1)
@@ -84,7 +87,6 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_print
-  bundler
   guard-bundler
   guard-rspec
   rb-fsevent
