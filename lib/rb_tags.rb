@@ -38,8 +38,8 @@ module RbTags
         gem_list
       end
 
+      results.each { |g| tags.add(g.tags) }
     end
-    results.each { |g| tags.add(g.tags) }
     tags.save
   end
 

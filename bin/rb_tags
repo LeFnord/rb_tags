@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 
 require 'gli'
+require 'readline'
+
 begin # XXX: Remove this begin/rescue before distributing your app
 require 'rb_tags'
 self.extend RbTags
@@ -84,4 +86,18 @@ on_error do |exception|
   true
 end
 
-exit run(ARGV)
+LIST = self.commands.keys.collect { |x| x.to_s }
+
+comp = proc { |s| LIST.grep(/^#{Regexp.escape(s)}/) }
+
+Readline.completer_word_break_characters = ""
+Readline.completion_append_character = " "
+Readline.completion_proc = comp
+
+while line = Readline.readline('$ ', true)
+  unless line[-1] =~ /(\n\r)/
+    args = line.split(' ')
+    break
+  end
+end
+exit run(args)

@@ -4,7 +4,7 @@ class Tags
 
   attr_reader :dir, :tags, :names
 
-  def initialize(dir = Dir.getwd)
+  def initialize(dir = Dir.getwd, read = false)
     @dir = dir
   end
 
