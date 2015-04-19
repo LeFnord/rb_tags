@@ -1,21 +1,26 @@
+# external requirements
 require 'bundler'
 require 'awesome_print'
 require 'yaml'
-require 'parslet'
+require 'readline'
 require 'parallel'
+require 'parslet'
 require 'parslet/convenience'
 
+# internal requirements
 require 'rb_tags/version.rb'
 
 require 'rb_tags/concerns/sys_info'
 require 'rb_tags/concerns/generate_tags'
 require 'rb_tags/concerns/parser'
 require 'rb_tags/concerns/yaml_tasks'
+require 'rb_tags/concerns/completion'
 
 require 'rb_tags/tags'
 
 module RbTags
   include SysInfo
+  include Completion
 
   def generate(options={})
     set_options(options)
@@ -29,6 +34,7 @@ module RbTags
       results = ::Parallel.map(@gem_list.each_slice(number_of_processors), in_processes: number_of_processors) do |dir_list|
         gem_list = Tags.new(dir_list.shift)
         gem_list.tag
+
         dir_list.each do |dir|
           gem_tags = Tags.new(dir)
           gem_tags.tag
@@ -49,6 +55,12 @@ module RbTags
     ap @tags.tags.length
   end
 
+  def find
+    get_existend_tags
+    arg = complete(@tags.names).first
+    @tags.tags[arg]
+  end
+
   # attributes
   def options
     @options
@@ -64,8 +76,6 @@ module RbTags
       @gem_list = Bundler.load.specs.map(&:full_gem_path) - [default_dir]
     end
   end
-
-
 
   def gem_file
     File.join(default_dir, './Gemfile')

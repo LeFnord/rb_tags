@@ -38,15 +38,7 @@ command :tag do |c|
   c.switch [:gems], :default_value => false
 
   c.action do |global_options,options,args|
-
     generate(options)
-
-    # Your command logic here
-
-    # If you have any errors, just raise them
-    # raise "that command made no sense"
-
-    puts "tag command ran"
   end
 end
 
@@ -57,13 +49,13 @@ command :show do |c|
   end
 end
 
-# desc 'Describe find here'
-# arg_name 'Describe arguments to find here'
-# command :find do |c|
-#   c.action do |global_options,options,args|
-#     puts "find command ran"
-#   end
-# end
+desc 'Describe find here'
+arg_name 'Describe arguments to find here'
+command :find do |c|
+  c.action do |global_options,options,args|
+    ap find
+  end
+end
 
 pre do |global,command,options,args|
   # Pre logic here
@@ -86,18 +78,6 @@ on_error do |exception|
   true
 end
 
-LIST = self.commands.keys.collect { |x| x.to_s }
-
-comp = proc { |s| LIST.grep(/^#{Regexp.escape(s)}/) }
-
-Readline.completer_word_break_characters = ""
-Readline.completion_append_character = " "
-Readline.completion_proc = comp
-
-while line = Readline.readline('$ ', true)
-  unless line[-1] =~ /(\n\r)/
-    args = line.split(' ')
-    break
-  end
-end
-exit run(args)
+# list = self.commands.keys.collect { |x| x.to_s }
+# args = complete(list)
+exit run(ARGV)

@@ -6,6 +6,7 @@ class Tags
 
   def initialize(dir = Dir.getwd, read = false)
     @dir = dir
+    read if read
   end
 
   def tag
