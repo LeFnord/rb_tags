@@ -31,7 +31,8 @@ module RbTags
     if @options[:gems]
       build_gem_list
 
-      results = ::Parallel.map(@gem_list.each_slice(number_of_processors), in_processes: number_of_processors) do |dir_list|
+      results = ::Parallel.map(@gem_list.each_slice(number_of_processors),
+                               in_processes: number_of_processors) do |dir_list|
         gem_list = Tags.new(dir_list.shift)
         gem_list.tag
 
@@ -58,7 +59,26 @@ module RbTags
   def find
     get_existend_tags
     arg = complete(@tags.names).first
-    @tags.tags[arg]
+    @found = @tags.tags[arg]
+  end
+
+  def open what = 0
+    selected = @found[what.to_i]
+    # @found[what.to_i].each_pair do |key, value|
+    #   $stdout.print "\n#{key}:".ljust(15).green
+    #   $stdout.print "#{value}".blue
+    # end
+    # $stdout.puts ""
+
+    editor = ENV['EDITOR']
+    case editor
+    when 'mate'
+      `#{editor} -l #{selected[:line]} #{selected[:path]}`
+    when 'emacs'
+      system("emacs --no-splash +#{selected[:line]} #{selected[:path]}")
+    else
+      system("vim +#{selected[:line]} #{selected[:path]}")
+    end
   end
 
   # attributes
