@@ -64,16 +64,10 @@ module RbTags
 
   def open what = 0
     selected = @found[what.to_i]
-    # @found[what.to_i].each_pair do |key, value|
-    #   $stdout.print "\n#{key}:".ljust(15).green
-    #   $stdout.print "#{value}".blue
-    # end
-    # $stdout.puts ""
-
     editor = ENV['EDITOR']
     case editor
     when 'mate'
-      `#{editor} -l #{selected[:line]} #{selected[:path]}`
+      `mate -l #{selected[:line]} #{selected[:path]}`
     when 'emacs'
       system("emacs --no-splash +#{selected[:line]} #{selected[:path]}")
     else

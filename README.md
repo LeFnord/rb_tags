@@ -39,6 +39,7 @@ in your path.
         --version - Display the program version
 
     COMMANDS
+        find - search for a tag
         help - Shows a list of commands or help for one command
         show - show esisting tags
         tag  - tags a given directory
