@@ -6,7 +6,7 @@ class Tags
 
   def initialize(dir = Dir.getwd, read = false)
     @dir = dir
-    read if read
+    self.read if read
   end
 
   def tag
@@ -24,11 +24,11 @@ class Tags
   end
 
   def save
-    write_to_yaml(this: @tags)
+    write_to_yaml(dir: @dir, this: @tags)
   end
 
   def read
-    @tags = read_from_yaml_file
+    @tags = read_from_yaml_file(dir: @dir)
   end
 
   def names

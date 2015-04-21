@@ -6,6 +6,7 @@ require 'readline'
 require 'parallel'
 require 'parslet'
 require 'parslet/convenience'
+require 'colorize'
 
 # internal requirements
 require 'rb_tags/version.rb'
@@ -37,8 +38,14 @@ module RbTags
         gem_list.tag
 
         dir_list.each do |dir|
-          gem_tags = Tags.new(dir)
-          gem_tags.tag
+          gem_tags = Tags.new(dir, true)
+          unless !!gem_tags.tags
+            gem_tags.tag
+            gem_tags.save
+            $stdout.print "tag dir: ".blue
+            $stdout.print "#{gem_tags.dir}".colorize(:yellow_light)
+            $stdout.print " first time\n".blue
+          end
           gem_list.add(gem_tags.tags)
         end
 
@@ -62,7 +69,16 @@ module RbTags
     @found = @tags.tags[arg]
   end
 
-  def open what = 0
+  def open(what = 0)
+    if what !~ /\d+/
+      message = "\n       sorry '#{what.chomp!}' not yet supported ...\n       use an array index\n"
+      message.rjust(27).split(//).each do |char|
+        $stdout.print char.colorize(:light_red)
+        sleep 0.0057
+      end
+      return -1
+    end
+
     selected = @found[what.to_i]
     editor = ENV['EDITOR']
     case editor

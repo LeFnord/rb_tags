@@ -17,7 +17,7 @@ GEM
     celluloid (0.16.0)
       timers (~> 4.0.0)
     coderay (1.1.0)
-    colorize (0.7.5)
+    colorize (0.7.7)
     diff-lcs (1.2.5)
     ffi (1.9.8)
     formatador (0.2.5)
