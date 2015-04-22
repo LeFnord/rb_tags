@@ -42,7 +42,7 @@ module RbTags
           unless !!gem_tags.tags
             gem_tags.tag
             gem_tags.save
-            $stdout.print "tag dir: ".blue
+            $stdout.print "tag gem: ".blue
             $stdout.print "#{gem_tags.dir}".colorize(:yellow_light)
             $stdout.print " first time\n".blue
           end
