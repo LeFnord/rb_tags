@@ -10,6 +10,7 @@ describe Tags do
 
   it { expect(subject).to respond_to(:dir) }
   it { expect(subject).to respond_to(:tags) }
+  it { expect(subject).to respond_to(:names) }
 
   describe 'defaults' do
     it { expect(subject.dir).to eq Dir.getwd }
@@ -61,7 +62,7 @@ describe Tags do
     end
   end
 
-  describe 'add' do
+  describe '#add' do
     subject { Tags.new }
 
     it 'has same length, if both are equal' do
@@ -79,5 +80,11 @@ describe Tags do
       subject.add(compare.tags)
       expect(subject.tags.length).to be > compare.tags.length
     end
+  end
+
+  describe '#names' do
+    before { subject.tag }
+    it { expect(subject.names).to be_a Array }
+    it { expect(subject.names.first).to be_a String }
   end
 end

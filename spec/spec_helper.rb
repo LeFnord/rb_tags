@@ -1,6 +1,12 @@
+require 'simplecov'
+SimpleCov.start do
+  add_filter "/spec/"
+end
+
+
 require 'rspec'
 require 'rspec/mocks'
-require "parslet/rig/rspec"
+require 'parslet/rig/rspec'
 
 require 'parser_helper'
 

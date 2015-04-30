@@ -34,8 +34,4 @@ class Tags
   def names
     @names ||= self.tags.keys
   end
-
-  def self.dummy
-    'dummy'
-  end
 end

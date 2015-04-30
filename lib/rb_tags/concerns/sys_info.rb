@@ -5,7 +5,7 @@
 
 module SysInfo
   module_function
-  
+
   def number_of_processors
     if RUBY_PLATFORM =~ /linux/
       return `cat /proc/cpuinfo | grep processor | wc -l`.to_i
@@ -15,5 +15,5 @@ module SysInfo
       return 2
     end
   end
-  
+
 end

@@ -1,6 +1,5 @@
 def samples
   [
-
     "RbTags           module        1 /Users/le_fnord/sandbox/github/rb_tags/lib/rb_tags/version.rb module RbTags",
     "ctags_expression method       18 /Users/le_fnord/sandbox/github/rb_tags/lib/rb_tags/gem_tags.rb def ctags_expression",
     "generate         method       11 /Users/le_fnord/sandbox/github/rb_tags/lib/rb_tags/gem_tags.rb def generate",
@@ -19,8 +18,5 @@ def samples
     "application=     method       12 /usr/local/var/rbenv/versions/2.2.1/lib/ruby/gems/2.2.0/gems/rake-10.4.2/lib/rake/rake_module.rb def application=(app)",
     "L_darwin64_struct_ret_by_value_p$stub label       542 /usr/local/var/rbenv/versions/2.2.1/lib/ruby/gems/2.2.0/gems/ffi-1.9.8/ext/ffi_c/libffi/src/powerpc/darwin_closure.S L_darwin64_struct_ret_by_value_p$stub:",
     "$retint          label       103 /usr/local/var/rbenv/versions/2.2.1/lib/ruby/gems/2.2.0/gems/ffi-1.9.8/ext/ffi_c/libffi/src/alpha/osf.S $retint:",
-
-    "~SslBox_t        function    260 /usr/local/var/rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/eventmachine-1.0.7/ext/ssl.cpp SslBox_t::~SslBox_t()",
-    "Date.toJSON      method      178 /usr/local/var/rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/execjs-2.5.2/lib/execjs/support/json2.js Date.prototype.toJSON = function (key) {"
   ]
 end

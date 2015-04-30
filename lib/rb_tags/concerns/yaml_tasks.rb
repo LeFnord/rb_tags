@@ -8,7 +8,7 @@ module YamlTasks
   end
 
   private
-  def store(dir)
+  def store(dir = nil)
     if !!dir
       store = File.join(dir,".tags")
     else
