@@ -24,7 +24,7 @@ module RbTags
   include Completion
 
   def generate(options={})
-    set_options(options)
+    default_options(options)
 
     tags = Tags.new(default_dir)
     tags.tag
@@ -57,12 +57,13 @@ module RbTags
     tags.save
   end
 
-  def show
+  def tags
     get_existend_tags
-    ap @tags.names
-    ap @tags.tags.length
+    @tags.names
   end
 
+
+  # used for command line
   def find
     get_existend_tags
     arg = complete(@tags.names).first
@@ -79,16 +80,7 @@ module RbTags
       return -1
     end
 
-    selected = @found[what.to_i]
-    editor = ENV['EDITOR']
-    case editor
-    when 'mate'
-      `mate -l #{selected[:line]} #{selected[:path]}`
-    when 'emacs'
-      system("emacs --no-splash +#{selected[:line]} #{selected[:path]}")
-    else
-      system("vim +#{selected[:line]} #{selected[:path]}")
-    end
+    opend_found selected: @found[what.to_i], editor: ENV['EDITOR']
   end
 
   # attributes
@@ -100,7 +92,14 @@ module RbTags
     @gem_list
   end
 
+
+
   private
+
+  def get_existend_tags
+    @tags ||= Tags.new(read: true)
+  end
+
   def build_gem_list
     if File.exist? gem_file
       @gem_list = Bundler.load.specs.map(&:full_gem_path) - [default_dir]
@@ -111,7 +110,7 @@ module RbTags
     File.join(default_dir, './Gemfile')
   end
 
-  def set_options(options)
+  def default_options(options)
     @options = options.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
     @options.delete(:dir) if @options[:dir].nil?
     @options.merge!(defaults) { |key, opt, default| opt }
@@ -125,8 +124,16 @@ module RbTags
     Dir.getwd
   end
 
-  def get_existend_tags
-    @tags ||= Tags.new
-    @tags.read
+  def opend_found selected: {}, editor: 'mate'
+    case editor
+    when 'mate'
+      `mate -l #{selected[:line]} #{selected[:path]}`
+    when 'emacs'
+      system("emacs --no-splash +#{selected[:line]} #{selected[:path]}")
+    else
+      system("vim +#{selected[:line]} #{selected[:path]}")
+    end
   end
 end
+
+

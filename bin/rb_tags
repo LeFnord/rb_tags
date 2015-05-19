@@ -45,7 +45,8 @@ end
 desc 'show esisting tags'
 command :show do |c|
   c.action do |global_options,options,args|
-    show
+    ap tags
+    ap tags.length
   end
 end
 

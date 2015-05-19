@@ -4,9 +4,12 @@ class Tags
 
   attr_reader :dir, :tags, :names
 
-  def initialize(dir = Dir.getwd, read = false)
+  def initialize(dir = Dir.getwd, read: false)
     @dir = dir
-    self.read if read
+    if read
+      self.read
+      self.names
+    end
   end
 
   def tag
@@ -32,6 +35,6 @@ class Tags
   end
 
   def names
-    @names ||= self.tags.keys
+    @names ||= @tags.keys
   end
 end

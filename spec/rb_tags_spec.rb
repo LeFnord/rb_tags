@@ -27,10 +27,10 @@ describe RbTags do
     end
 
     describe 'private methods' do
-      describe '#set_options' do
+      describe '#default_options' do
         describe 'defaults' do
-          let(:tags) { foo.send(:set_options, {})}
-          let(:defaults) { foo.send(:defaults)}
+          let(:tags) { foo.send(:default_options, {})}
+          let(:defaults) { foo.send(:defaults) }
 
           it { expect { tags }.to_not raise_error }
           it { expect(tags).to eq defaults }
@@ -38,13 +38,13 @@ describe RbTags do
 
         describe 'set gems' do
           let(:options) { {gems: true} }
-          let(:tag_w_options) { foo.send(:set_options, options)}
+          let(:tag_w_options) { foo.send(:default_options, options)}
           it { expect(tag_w_options).to eq options }
         end
 
-        describe 'form gli' do
+        describe 'from gli' do
           let(:income) { { "dir"  => "..", :dir   => "..", "save" => true, :save  => true, "gems" => true, :read  => false } }
-          let(:options) { foo.send(:set_options, income)}
+          let(:options) { foo.send(:default_options, income)}
           let(:expected) { { :dir   => "..", :save  => true, :gems => true, :read  => false } }
           it { expect(options).to eq expected }
         end
