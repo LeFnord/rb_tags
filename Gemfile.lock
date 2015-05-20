@@ -22,7 +22,7 @@ GEM
     docile (1.1.5)
     ffi (1.9.8)
     formatador (0.2.5)
-    gli (2.13.0)
+    gli (2.13.1)
     guard (2.12.5)
       formatador (>= 0.2.4)
       listen (~> 2.7)
