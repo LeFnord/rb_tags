@@ -24,37 +24,45 @@ module RbTags
   include Completion
 
   def generate(options={})
-    default_options(options)
-
     tags = Tags.new(default_dir)
     tags.tag
 
+    default_options(options)
     if @options[:gems]
-      build_gem_list
+      result = tag_bundled_gems
+      result.each { |g| tags.add(g.tags) }
+    end
 
-      results = ::Parallel.map(@gem_list.each_slice(number_of_processors),
-                               in_processes: number_of_processors) do |dir_list|
-        gem_list = Tags.new(dir_list.shift)
-        gem_list.tag
+    tags.save
+  end
 
-        dir_list.each do |dir|
-          gem_tags = Tags.new(dir, true)
-          unless !!gem_tags.tags
-            gem_tags.tag
-            gem_tags.save
-            $stdout.print "tag gem: ".blue
-            $stdout.print "#{gem_tags.dir}".colorize(:yellow_light)
-            $stdout.print " first time\n".blue
-          end
-          gem_list.add(gem_tags.tags)
+  def tag_bundled_gems
+    build_gem_list
+    results = ::Parallel.map(@gem_list.each_slice(number_of_processors),
+                             in_processes: number_of_processors) do |dir_list|
+      gem_list = Tags.new(dir_list.shift)
+      gem_list.tag
+
+      dir_list.each do |dir|
+        gem_tags = Tags.new(dir, read: true)
+        unless !!gem_tags.tags
+          gem_tags.tag
+          gem_tags.save
+          say_tagging(gem_tags.dir)
         end
-
-        gem_list
+        gem_list.add(gem_tags.tags)
       end
 
-      results.each { |g| tags.add(g.tags) }
+      gem_list
     end
-    tags.save
+
+    results
+  end
+
+  def say_tagging(dir)
+    $stdout.print "tag gem: ".blue
+    $stdout.print "#{dir}".colorize(:yellow_light)
+    $stdout.print " first time\n".blue
   end
 
   def tags
@@ -62,13 +70,19 @@ module RbTags
     @tags.names
   end
 
+  def found(arg)
+    get_existend_tags
+    @tags.tags[arg]
+  end
 
   # used for command line
+  # :nocov:
   def find
     get_existend_tags
     arg = complete(@tags.names).first
-    @found = @tags.tags[arg]
+    found(arg)
   end
+  # :nocov:
 
   def open(what = 0)
     if what !~ /\d+/
@@ -77,10 +91,10 @@ module RbTags
         $stdout.print char.colorize(:light_red)
         sleep 0.0057
       end
-      return -1
+      return
     end
 
-    opend_found selected: @found[what.to_i], editor: ENV['EDITOR']
+    opend_found selected: found[what], editor: ENV['EDITOR']
   end
 
   # attributes
@@ -91,7 +105,6 @@ module RbTags
   def gem_list
     @gem_list
   end
-
 
 
   private
@@ -117,23 +130,25 @@ module RbTags
   end
 
   def defaults
-    { gems: true }
+    { gems: false }
   end
 
   def default_dir
     Dir.getwd
   end
 
+  # :nocov:
   def opend_found selected: {}, editor: 'mate'
+    file_line = "#{selected[:line]} #{selected[:path]}"
     case editor
     when 'mate'
-      `mate -l #{selected[:line]} #{selected[:path]}`
+      `mate -l #{file_line}`
     when 'emacs'
-      system("emacs --no-splash +#{selected[:line]} #{selected[:path]}")
+      `emacs --no-splash +#{file_line}`
     else
-      system("vim +#{selected[:line]} #{selected[:path]}")
+      `vim +#{file_line}`
     end
   end
+  # :nocov:
+
 end
-
-

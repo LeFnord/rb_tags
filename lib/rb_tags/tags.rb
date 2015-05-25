@@ -32,9 +32,10 @@ class Tags
 
   def read
     @tags = read_from_yaml_file(dir: @dir)
+    tag if @tags.nil?
   end
 
   def names
-    @names ||= @tags.keys
+    @name ||= @tags.keys
   end
 end

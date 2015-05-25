@@ -2,6 +2,7 @@ module Completion
   module_function
 
   def complete(list)
+    # :nocov:
     comp = proc { |s| list.grep(/^#{Regexp.escape(s)}/) }
 
     Readline.completer_word_break_characters = ""
@@ -16,6 +17,7 @@ module Completion
     end
 
     args
+    # :nocov:
   end
 
 end
