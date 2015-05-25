@@ -70,19 +70,16 @@ module RbTags
     @tags.names
   end
 
-  def found(arg)
-    get_existend_tags
-    @tags.tags[arg]
-  end
-
   # used for command line
-  # :nocov:
   def find
     get_existend_tags
     arg = complete(@tags.names).first
-    found(arg)
+    @found = found(arg)
   end
-  # :nocov:
+
+  def found(arg)
+    @tags.tags[arg]
+  end
 
   def open(what = 0)
     if what !~ /\d+/
@@ -94,7 +91,7 @@ module RbTags
       return
     end
 
-    opend_found selected: found[what], editor: ENV['EDITOR']
+    opend_found selected: @found[what.to_i], editor: ENV['EDITOR']
   end
 
   # attributes

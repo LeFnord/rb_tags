@@ -13,7 +13,6 @@ describe RbTags do
   it { expect(subject).to respond_to(:generate) }
   it { expect(subject).to have_attributes(options: nil, gem_list: nil) }
 
-
   context Foo do
     let(:foo) { Foo.new }
 
@@ -45,11 +44,27 @@ describe RbTags do
       end
     end
 
+    describe '#find' do
+      let(:tag) { Tags.new(read: true).tags}
+      let(:arg) { tag.first.first }
+
+      before do
+        foo.send(:get_existend_tags)
+        allow(foo).to receive(:complete).and_return(tag[arg])
+      end
+
+      it 'does something' do
+        expect(foo.found(arg)).to eq tag[arg]
+        foo.find
+      end
+    end
+
     describe '#found' do
       let(:tag) { Tags.new(read: true).tags.first}
       let(:key) { tag.first }
 
       it 'does something' do
+        foo.send(:get_existend_tags)
         expect(foo.found(key)).to eq tag.last
       end
     end
