@@ -1,3 +1,5 @@
+[![Gem Version](https://badge.fury.io/rb/rb_tags.svg)](http://badge.fury.io/rb/rb_tags)
+
 # RbTags
 
 Generate tags file for your ruby project and bundled gems, based on ctags.
