@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rb_tags (0.0.5)
+    rb_tags (0.1.0)
       bundler
       colorize
       gli
@@ -53,7 +53,7 @@ GEM
     notiffany (0.0.6)
       nenv (~> 0.1)
       shellany (~> 0.0)
-    parallel (1.5.1)
+    parallel (1.6.0)
     parslet (1.7.0)
       blankslate (>= 2.0, <= 4.0)
     pry (0.10.1)
