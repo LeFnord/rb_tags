@@ -134,8 +134,8 @@ module RbTags
     Dir.getwd
   end
 
-  # :nocov:
   def opend_found selected: {}, editor: 'mate'
+    # :nocov:
     file_line = "#{selected[:line]} #{selected[:path]}"
     case editor
     when 'mate'
@@ -145,7 +145,7 @@ module RbTags
     else
       `vim +#{file_line}`
     end
+    # :nocov:
   end
-  # :nocov:
 
 end
