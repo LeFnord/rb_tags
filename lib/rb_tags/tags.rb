@@ -36,6 +36,6 @@ class Tags
   end
 
   def names
-    @name ||= @tags.keys
+    @tags.keys
   end
 end

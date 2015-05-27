@@ -23,6 +23,10 @@ module RbTags
   include SysInfo
   include Completion
 
+  #
+  # create or update tag list
+  #
+
   def generate(options={})
     tags = Tags.new(default_dir)
     tags.tag
@@ -65,20 +69,25 @@ module RbTags
     $stdout.print " first time\n".blue
   end
 
+  #
+  # using tag list
+  #
+
+  # get list of all names of methods/classes/modules
   def tags
-    get_existend_tags
+    @tags ||= Tags.new(read: true)
     @tags.names
   end
 
-  # used for command line
-  def find
-    get_existend_tags
-    arg = complete(@tags.names).first
-    @found = found(arg)
+  # get a tag name via readline
+  def complete_tag
+    arg = complete(tags).first
+    found(arg)
   end
 
-  def found(arg)
-    @tags.tags[arg]
+  # get all occurences of given tag name
+  def found(tag_name)
+    @found = @tags.tags[tag_name]
   end
 
   def open(what = 0)
@@ -105,10 +114,6 @@ module RbTags
 
 
   private
-
-  def get_existend_tags
-    @tags ||= Tags.new(read: true)
-  end
 
   def build_gem_list
     if File.exist? gem_file

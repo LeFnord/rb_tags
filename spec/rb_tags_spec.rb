@@ -16,75 +16,80 @@ describe RbTags do
   context Foo do
     let(:foo) { Foo.new }
 
-    describe '#generate' do
-      describe 'in work dir' do
-        it { expect { foo.generate }.to_not raise_error }
-      end
+    context 'create or update tag list' do
+      describe '#generate' do
+        describe 'in work dir' do
+          it { expect { foo.generate }.to_not raise_error }
+        end
 
-      describe 'in gems' do
-        it { expect { foo.generate(gems: true) }.to_not raise_error }
-      end
-    end
-
-    describe '#say_tagging' do
-      let(:dir) { '/something' }
-      let(:message) { "tag gem: #{dir} first time\n"}
-
-      it 'does something' do
-        expect(foo).to receive(:say_tagging).with(dir).and_return(message)
-        foo.say_tagging(dir)
-      end
-    end
-
-    describe '#tags' do
-      let(:tag_tags) { Tags.new(read: true).names}
-
-      it 'has tags' do
-        expect(foo.tags).to eq tag_tags
-      end
-    end
-
-    describe '#find' do
-      let(:tag) { Tags.new(read: true).tags}
-      let(:arg) { tag.first.first }
-
-      before do
-        foo.send(:get_existend_tags)
-        allow(foo).to receive(:complete).and_return(tag[arg])
-      end
-
-      it 'does something' do
-        expect(foo.found(arg)).to eq tag[arg]
-        foo.find
-      end
-    end
-
-    describe '#found' do
-      let(:tag) { Tags.new(read: true).tags.first}
-      let(:key) { tag.first }
-
-      it 'does something' do
-        foo.send(:get_existend_tags)
-        expect(foo.found(key)).to eq tag.last
-      end
-    end
-
-    describe '#open' do
-      describe 'what is valid' do
-        let(:what) { 0 }
-
-        it 'call open' do
-          expect(foo).to receive(:open).with(what)
-          foo.open(what)
+        describe 'in gems' do
+          it { expect { foo.generate(gems: true) }.to_not raise_error }
         end
       end
 
-      describe 'what is invalid' do
-        let(:what) { 'a' }
+      describe '#say_tagging' do
+        let(:dir) { '/something' }
+        let(:message) { "tag gem: #{dir} first time\n"}
 
-        it { expect{ foo.open(what) }.to output.to_stdout }
+        it 'does something' do
+          expect(foo).to receive(:say_tagging).with(dir).and_return(message)
+          foo.say_tagging(dir)
+        end
       end
     end
+
+    context 'using tag list' do
+      before { foo.tags }
+
+      describe '#tags' do
+        let(:tag_tags) { Tags.new(read: true).names}
+
+        it 'has tags' do
+          expect(foo.tags).to eq tag_tags
+        end
+      end
+
+      describe '#complete_tag' do
+        let(:tag) { Tags.new(read: true).tags}
+        let(:arg) { tag.first.first }
+
+        before do
+          allow(foo).to receive(:complete).and_return(tag[arg])
+        end
+
+        it 'does something' do
+          expect(foo.found(arg)).to eq tag[arg]
+          foo.complete_tag
+        end
+      end
+
+      describe '#found' do
+        let(:tag) { Tags.new(read: true).tags.first}
+        let(:key) { tag.first }
+
+        it 'does something' do
+          expect(foo.found(key)).to eq tag.last
+        end
+      end
+
+      describe '#open' do
+        describe 'what is valid' do
+          let(:what) { 0 }
+
+          it 'call open' do
+            expect(foo).to receive(:open).with(what)
+            foo.open(what)
+          end
+        end
+
+        describe 'what is invalid' do
+          let(:what) { 'a' }
+
+          it { expect{ foo.open(what) }.to output.to_stdout }
+        end
+      end
+    end
+
 
     describe 'private methods' do
       describe '#default_options' do
@@ -122,12 +127,6 @@ describe RbTags do
 
         it { expect(bar).to be_a Array }
         it { expect(bar).to_not include(foo.send(:default_dir))}
-      end
-
-      describe '#get_existend_tags' do
-        let(:tags) { foo.send(:get_existend_tags) }
-
-        it { expect(tags).to be_a Tags }
       end
 
     end
