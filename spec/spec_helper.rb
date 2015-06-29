@@ -7,8 +7,9 @@ end
 require 'rspec'
 require 'rspec/mocks'
 require 'parslet/rig/rspec'
-
 require 'parser_helper'
+
+require 'doc_formatter'
 
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'rb_tags'

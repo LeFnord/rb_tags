@@ -28,10 +28,10 @@ module RbTags
   #
 
   def generate(options={})
-    tags = Tags.new(default_dir)
-    tags.tag
-
     default_options(options)
+
+    tags = Tags.new(@options[:dir])
+    tags.tag
     if @options[:gems]
       result = tag_bundled_gems
       result.each { |g| tags.add(g.tags) }
@@ -41,8 +41,8 @@ module RbTags
   end
 
   def tag_bundled_gems
-    build_gem_list
-    results = ::Parallel.map(@gem_list.each_slice(number_of_processors),
+    gem_list = build_gem_list
+    results = ::Parallel.map(gem_list.each_slice(number_of_processors),
                              in_processes: number_of_processors) do |dir_list|
       gem_list = Tags.new(dir_list.shift)
       gem_list.tag
@@ -108,17 +108,13 @@ module RbTags
     @options
   end
 
-  def gem_list
-    @gem_list
-  end
-
-
   private
 
   def build_gem_list
     if File.exist? gem_file
-      @gem_list = Bundler.load.specs.map(&:full_gem_path) - [default_dir]
+      return Bundler.load.specs.map(&:full_gem_path) - [default_dir]
     end
+    []
   end
 
   def gem_file
@@ -127,7 +123,7 @@ module RbTags
 
   def default_options(options)
     @options = options.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
-    @options.delete(:dir) if @options[:dir].nil?
+    @options[:dir] = Dir.getwd if @options[:dir].nil? || @options[:dir].empty?
     @options.merge!(defaults) { |key, opt, default| opt }
   end
 
