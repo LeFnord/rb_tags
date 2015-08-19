@@ -48,6 +48,18 @@ in your path.
 
 ```
 
+# RELEASE notes
+
+* v0.2.2: rollback to version 0.2.0, to use this, be sure you have no `.tags` files in any gems, if not use v0.2.1 to replace old structure in tag files  
+
+* v0.2.1: fixes introduced bug [changes](https://github.com/LeFnord/rb_tags/commit/465bdf427f11dce157f6113342f50464a12743f0), and is an migration version between changes in `yaml_tasks.rb`
+
+* v0.2.0: changes in [`yaml_tasks.rb`](https://github.com/LeFnord/rb_tags/commit/9260cc7398ec84bac54d7d10aeadbb479049b315); replacing combination of File.read/write and YAML.load/dump through YAML:Store
+
+  this introduced an incompatibility with existing tag files, causing in different structure
+
+  these version is yanked from rubygems.org
+
 ## Contributing
 
 1. Fork it

@@ -1,6 +1,8 @@
 describe Tags do
-  before(:each) do
-end
+  after(:all) do
+    tag_file = File.join(Dir.getwd,'.tags')
+    FileUtils.rm(tag_file) if File.exist?(tag_file)
+  end
 
   it { expect(described_class).to eq(Tags) }
 
@@ -41,6 +43,7 @@ end
   describe '#save' do
     it { expect { subject.save }.not_to raise_error }
     it 'do it' do
+      subject.tag
       subject.save
       foo = File.join(subject.dir, '.tags')
       expect(File.exist?(foo)).to eq true
