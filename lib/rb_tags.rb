@@ -7,6 +7,7 @@ require 'parallel'
 require 'parslet'
 require 'parslet/convenience'
 require 'colorize'
+require 'yaml/store'
 
 # internal requirements
 require 'rb_tags/version.rb'

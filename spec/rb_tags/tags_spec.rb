@@ -1,8 +1,6 @@
 describe Tags do
   before(:each) do
-    # tag_file = File.join(Dir.getwd,'.tags')
-    # FileUtils.rm(tag_file) if File.exist?(tag_file)
-  end
+end
 
   it { expect(described_class).to eq(Tags) }
 
