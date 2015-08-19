@@ -49,7 +49,7 @@ module RbTags
       gem_list.tag
 
       dir_list.each do |dir|
-        gem_tags = Tags.new(dir, read: true)
+        gem_tags = Tags.new(dir, read: false)
         unless !!gem_tags.tags
           gem_tags.tag
           gem_tags.save
