@@ -31,7 +31,7 @@ module RbTags
   def generate(options={})
     default_options(options)
 
-    tags = Tags.new(@options[:dir])
+    tags = Tags.new(dir: @options[:dir], force: (@options[:gems] || @options[:force]))
     tags.tag
     if @options[:gems]
       result = tag_bundled_gems
@@ -45,29 +45,24 @@ module RbTags
     gem_list = build_gem_list
     results = ::Parallel.map(gem_list.each_slice(number_of_processors),
                              in_processes: number_of_processors) do |dir_list|
-      gem_list = Tags.new(dir_list.shift)
+
+      gem_list = Tags.new(dir: dir_list.shift)
       gem_list.tag
 
       dir_list.each do |dir|
-        gem_tags = Tags.new(dir, read: true)
-        unless !!gem_tags.tags
-          gem_tags.tag
-          gem_tags.save
-          say_tagging(gem_tags.dir)
-        end
+        gem_tags = Tags.new(dir: dir)
+        say_tagging(gem_tags.dir)
+        # p gem_tags.tags.length
         gem_list.add(gem_tags.tags)
       end
-
       gem_list
     end
-
     results
   end
 
   def say_tagging(dir)
     $stdout.print "tag gem: ".blue
-    $stdout.print "#{dir}".colorize(:yellow_light)
-    $stdout.print " first time\n".blue
+    $stdout.print "#{dir}\n".colorize(:yellow_light)
   end
 
   #
@@ -76,7 +71,7 @@ module RbTags
 
   # get list of all names of methods/classes/modules
   def tags
-    @tags ||= Tags.new(read: true)
+    @tags ||= Tags.new(force: false)
     @tags.names
   end
 
@@ -129,7 +124,7 @@ module RbTags
   end
 
   def defaults
-    { gems: false }
+    { gems: false, force: false }
   end
 
   def default_dir
@@ -140,6 +135,8 @@ module RbTags
     # :nocov:
     file_line = "#{selected[:line]} #{selected[:path]}"
     case editor
+    when 'atom'
+      `atom #{file_line}`
     when 'mate'
       `mate -l #{file_line}`
     when 'emacs'

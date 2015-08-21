@@ -36,6 +36,8 @@ command :tag do |c|
   # switches
   c.desc 'tag also bundled gems'
   c.switch [:gems], :default_value => false
+  c.desc 'forces deleting of tag file before tagging'
+  c.switch [:force], :default_value => false
 
   c.action do |global_options,options,args|
     generate(options)

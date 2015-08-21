@@ -1,5 +1,5 @@
 describe Tags do
-  after(:all) do
+  after(:each) do
     tag_file = File.join(Dir.getwd,'.tags')
     FileUtils.rm(tag_file) if File.exist?(tag_file)
   end
@@ -14,11 +14,20 @@ describe Tags do
 
   describe 'defaults' do
     it { expect(subject.dir).to eq Dir.getwd }
-  end
 
-  describe 'with params' do
-    subject { Tags.new('.')}
-    it { expect(subject.dir).to eq '.' }
+    describe '#check dir' do
+      let(:to_create_dir) { File.join(Dir.getwd, 'spec','what') }
+
+      it 'create dirs' do
+        subject.check(to_create_dir)
+        expect(Dir.exist?(to_create_dir)).to be true
+      end
+    end
+
+    describe 'with params' do
+      subject { Tags.new(dir: './wo')}
+      it { expect(subject.dir).to eq './wo' }
+    end
   end
 
   describe '#tag' do
@@ -32,7 +41,7 @@ describe Tags do
     end
 
     it 'tags specified directory' do
-      subject = Tags.new(FileUtils.pwd)
+      subject = Tags.new(dir: FileUtils.pwd)
       subject.tag
       expect(subject.tags.length).to be > 1
       expect(subject.tags).to be_a Hash
@@ -54,7 +63,6 @@ describe Tags do
     it { expect { subject.read }.not_to raise_error }
     it 'do it' do
       subject.tag
-      subject.save
       tag_file = File.join(subject.dir, '.tags')
       expect(File.exist?(tag_file)).to eq true
       object = Tags.new
@@ -75,7 +83,7 @@ describe Tags do
 
     it 'has greater length, if not equal' do
       dir = Bundler.load.specs.map(&:full_gem_path).last
-      compare = Tags.new(dir)
+      compare = Tags.new(dir: dir)
       subject.tag
       compare.tag
       subject.add(compare.tags)
@@ -87,5 +95,20 @@ describe Tags do
     before { subject.tag }
     it { expect(subject.names).to be_a Array }
     it { expect(subject.names.first).to be_a String }
+  end
+
+  describe '#delete' do
+    before do
+      subject = Tags.new(dir: FileUtils.pwd)
+      subject.tag
+    end
+
+    it 'tag file' do
+      expect(subject).to receive(:delete)
+      subject.delete
+      tag_file = File.join(subject.dir, '.tags')
+
+      expect(Dir.exist?(tag_file)).to be false
+    end
   end
 end

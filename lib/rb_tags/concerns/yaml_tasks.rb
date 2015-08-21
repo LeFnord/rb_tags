@@ -2,13 +2,17 @@ module YamlTasks
   # # WRITE
   def write_to_yaml(dir: nil, this: {})
     db = YAML::Store.new(store(dir), thread_safe: true)
-    db.transaction { db["tags"] = this } unless this.nil?
+    db.transaction { db["tags"] = this }
   end
 
   # # READ
-  def read_from_yaml_file(dir: nil)
-    db = YAML::Store.new(store(dir), thread_safe: true)
-    db.transaction { db.fetch("tags") }
+  def read_from_yaml(dir: nil)
+    begin
+      db = YAML::Store.new(store(dir), thread_safe: true)
+      db.transaction { db.fetch("tags") }
+    rescue Exception => e
+    end
+
   end
 
   private

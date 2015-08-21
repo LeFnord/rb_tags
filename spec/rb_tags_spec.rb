@@ -42,7 +42,7 @@ describe RbTags do
       before { foo.tags }
 
       describe '#tags' do
-        let(:tag_tags) { Tags.new(read: true).names}
+        let(:tag_tags) { Tags.new(force: true).names}
 
         it 'has tags' do
           expect(foo.tags).to eq tag_tags
@@ -50,7 +50,7 @@ describe RbTags do
       end
 
       describe '#complete_tag' do
-        let(:tag) { Tags.new(read: true).tags}
+        let(:tag) { Tags.new(force: true).tags}
         let(:arg) { tag.first.first }
 
         before do
@@ -64,7 +64,7 @@ describe RbTags do
       end
 
       describe '#found' do
-        let(:tag) { Tags.new(read: true).tags.first}
+        let(:tag) { Tags.new(force: true).tags.first}
         let(:key) { tag.first }
 
         it 'does something' do
@@ -96,7 +96,7 @@ describe RbTags do
         describe 'defaults' do
           let(:tags) { foo.send(:default_options, {})}
           let(:defaults) { foo.send(:defaults) }
-          let(:default) { {gems: false, dir: Dir.getwd} }
+          let(:default) { {gems: false, dir: Dir.getwd, force: false} }
 
           it { expect { tags }.to_not raise_error }
           it { expect(tags).to eq default }
@@ -108,7 +108,7 @@ describe RbTags do
         end
 
         describe 'set gems' do
-          let(:options) { {gems: true, dir: '/somewhere'} }
+          let(:options) { {gems: true, dir: '/somewhere', force: false} }
           let(:tag_w_options) { foo.send(:default_options, options)}
           it { expect(tag_w_options).to eq options }
         end
@@ -116,7 +116,7 @@ describe RbTags do
         describe 'from gli' do
           let(:income) { { "dir" => "..", :dir => "..", "save" => true, :save => true, "gems" => true, :read  => false } }
           let(:options) { foo.send(:default_options, income)}
-          let(:expected) { { :dir => "..", :save => true, :gems => true, :read  => false } }
+          let(:expected) { { :dir => "..", :save => true, :gems => true, :read  => false, force: false } }
 
           it { expect(options).to eq expected }
         end

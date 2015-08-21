@@ -26,6 +26,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "guard-bundler"
   spec.add_development_dependency "rb-fsevent"
   spec.add_development_dependency "terminal-notifier-guard"
+  spec.add_development_dependency "pry"
+  spec.add_development_dependency "pry-byebug"
 
   spec.add_runtime_dependency "awesome_print"
   spec.add_runtime_dependency "bundler"
