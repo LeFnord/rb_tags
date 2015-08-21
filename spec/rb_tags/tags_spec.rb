@@ -1,6 +1,8 @@
 describe Tags do
+  let(:default_dir) { Dir.getwd }
+
   after(:each) do
-    tag_file = File.join(Dir.getwd,'.tags')
+    tag_file = File.join(default_dir,'.tags')
     FileUtils.rm(tag_file) if File.exist?(tag_file)
   end
 
@@ -16,10 +18,24 @@ describe Tags do
     it { expect(subject.dir).to eq Dir.getwd }
 
     describe '#check dir' do
-      let(:to_create_dir) { File.join(Dir.getwd, 'spec','what') }
+      it 'dir exist' do
+        dir = subject.check(default_dir)
+        expect(dir).to eql default_dir
+        expect(Dir.exist?(default_dir)).to be true
+      end
+
+      let(:to_create_dir) { File.join(default_dir, 'spec','what') }
+
+      before do
+        FileUtils.rmdir(to_create_dir)
+      end
 
       it 'create dirs' do
-        subject.check(to_create_dir)
+        expect(Dir.exist?(to_create_dir)).to be false
+1
+        dir = subject.check(to_create_dir)
+
+        expect(dir).to eql to_create_dir
         expect(Dir.exist?(to_create_dir)).to be true
       end
     end
