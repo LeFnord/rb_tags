@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # A sample Guardfile
 # More info at https://github.com/guard/guard#readme
 
@@ -35,8 +36,8 @@ guard :bundler do
   files.each { |file| watch(helper.real_path(file)) }
 end
 
-guard :rspec, cmd: "bundle exec rspec" do
-  require "guard/rspec/dsl"
+guard :rspec, cmd: 'bundle exec rspec' do
+  require 'guard/rspec/dsl'
   dsl = Guard::RSpec::Dsl.new(self)
 
   # Ruby files

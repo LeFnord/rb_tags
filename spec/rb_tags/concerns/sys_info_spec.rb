@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'spec_helper'
 
 describe SysInfo do
@@ -9,11 +10,11 @@ describe SysInfo do
     let(:number) { subject.number_of_processors }
 
     it 'does something' do
-      expect(subject).to receive(:number_of_processors).and_return(Fixnum)
+      expect(subject).to receive(:number_of_processors).and_return(Integer)
       subject.number_of_processors
     end
 
-    it { expect(number).to be_a Fixnum }
+    it { expect(number).to be_a Integer }
     it { expect(number).to be >= 2 }
   end
 end

@@ -1,0 +1,24 @@
+inherit_from: .rubocop_todo.yml
+
+AllCops:
+  Exclude:
+    - rb_tags.gemspec
+  UseCache: true
+  TargetRubyVersion: 2.4
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+
+Metrics/LineLength:
+  Max: 120
+  Exclude:
+    - 'spec/**/*'
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/Documentation:
+  Exclude:
+    - 'lib/**/*'
+    - 'spec/**/*'

@@ -1,8 +1,9 @@
+# frozen_string_literal: true
 describe Tags do
   let(:default_dir) { Dir.getwd }
 
   after(:each) do
-    tag_file = File.join(default_dir,'.tags')
+    tag_file = File.join(default_dir, '.tags')
     FileUtils.rm(tag_file) if File.exist?(tag_file)
   end
 
@@ -24,7 +25,7 @@ describe Tags do
         expect(Dir.exist?(default_dir)).to be true
       end
 
-      let(:to_create_dir) { File.join(default_dir, 'spec','what') }
+      let(:to_create_dir) { File.join(default_dir, 'spec', 'what') }
 
       before do
         FileUtils.rmdir(to_create_dir)
@@ -32,7 +33,7 @@ describe Tags do
 
       it 'create dirs' do
         expect(Dir.exist?(to_create_dir)).to be false
-1
+
         dir = subject.check(to_create_dir)
 
         expect(dir).to eql to_create_dir
@@ -41,7 +42,7 @@ describe Tags do
     end
 
     describe 'with params' do
-      subject { Tags.new(dir: './wo')}
+      subject { Tags.new(dir: './wo') }
       it { expect(subject.dir).to eq './wo' }
     end
   end
@@ -92,9 +93,9 @@ describe Tags do
 
     it 'has same length, if both are equal' do
       subject.tag
-      tags_1 = subject.tags
-      expect { subject.add(tags_1) }.not_to raise_error
-      expect(subject.tags.length).to eq tags_1.length
+      tags_one = subject.tags
+      expect { subject.add(tags_one) }.not_to raise_error
+      expect(subject.tags.length).to eq tags_one.length
     end
 
     it 'has greater length, if not equal' do

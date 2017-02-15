@@ -1,10 +1,11 @@
+# frozen_string_literal: true
 describe GenerateTags do
   subject { described_class }
 
   it { expect(subject.name).to eq 'GenerateTags' }
 
-  let(:valid) { ["RbTags           module        1 /Users/le_fnord/sandbox/github/rb_tags/lib/rb_tags/version.rb module RbTags"] }
-  let(:invalid) { ["Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."] }
+  let(:valid) { ['RbTags           module        1 /Users/le_fnord/sandbox/github/rb_tags/lib/rb_tags/version.rb module RbTags'] }
+  let(:invalid) { ['Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'] }
 
   describe '#parse_expression_line' do
     subject { Class.include described_class }
@@ -12,7 +13,7 @@ describe GenerateTags do
     let(:no_tags) { subject.parse_expression_line(invalid) }
 
     describe 'valid example' do
-      it { expect {tags}.not_to raise_error }
+      it { expect { tags }.not_to raise_error }
       it { expect(tags).to be_a Array }
       it { expect(tags.first).to be_a Hash }
       it { expect(tags.first).to include(:name, :type, :line, :path, :definition) }
@@ -25,4 +26,3 @@ describe GenerateTags do
     end
   end
 end
-

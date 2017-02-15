@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 describe Parser do
   it { expect(described_class).to eq(Parser) }
 
@@ -40,7 +41,7 @@ describe Parser do
 
       it { expect(parser.line).not_to parse(' ') }
       it { expect(parser.line).not_to parse("\t") }
-      it { expect(parser.line).not_to parse("word") }
+      it { expect(parser.line).not_to parse('word') }
     end
 
     describe '#separator' do
@@ -50,7 +51,7 @@ describe Parser do
       it { expect(parser.separator).not_to parse('23') }
       it { expect(parser.separator).not_to parse(' ') }
       it { expect(parser.separator).not_to parse("\t") }
-      it { expect(parser.separator).not_to parse("word") }
+      it { expect(parser.separator).not_to parse('word') }
     end
   end
 
@@ -102,6 +103,4 @@ describe Parser do
       it { expect(parser).to parse(line) }
     end
   end
-
-
 end

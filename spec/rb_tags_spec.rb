@@ -1,3 +1,4 @@
+# frozen_string_literal: false
 class Foo
   include RbTags
 end
@@ -29,7 +30,7 @@ describe RbTags do
 
       describe '#say_tagging' do
         let(:dir) { '/something' }
-        let(:message) { "tag gem: #{dir} first time\n"}
+        let(:message) { "tag gem: #{dir} first time\n" }
 
         it 'does something' do
           expect(foo).to receive(:say_tagging).with(dir).and_return(message)
@@ -42,7 +43,7 @@ describe RbTags do
       before { foo.tags }
 
       describe '#tags' do
-        let(:tag_tags) { Tags.new(force: true).names}
+        let(:tag_tags) { Tags.new(force: true).names }
 
         it 'has tags' do
           expect(foo.tags).to eq tag_tags
@@ -50,7 +51,7 @@ describe RbTags do
       end
 
       describe '#complete_tag' do
-        let(:tag) { Tags.new(force: true).tags}
+        let(:tag) { Tags.new(force: true).tags }
         let(:arg) { tag.first.first }
 
         before do
@@ -64,7 +65,7 @@ describe RbTags do
       end
 
       describe '#found' do
-        let(:tag) { Tags.new(force: true).tags.first}
+        let(:tag) { Tags.new(force: true).tags.first }
         let(:key) { tag.first }
 
         it 'does something' do
@@ -85,18 +86,17 @@ describe RbTags do
         describe 'what is invalid' do
           let(:what) { 'a' }
 
-          it { expect{ foo.open(what) }.to output.to_stdout }
+          it { expect { foo.open(what) }.to output.to_stdout }
         end
       end
     end
 
-
     describe 'private methods' do
       describe '#default_options' do
         describe 'defaults' do
-          let(:tags) { foo.send(:default_options, {})}
+          let(:tags) { foo.send(:default_options, {}) }
           let(:defaults) { foo.send(:defaults) }
-          let(:default) { {gems: false, dir: Dir.getwd, force: false} }
+          let(:default) { { gems: false, dir: Dir.getwd, force: false } }
 
           it { expect { tags }.to_not raise_error }
           it { expect(tags).to eq default }
@@ -108,15 +108,15 @@ describe RbTags do
         end
 
         describe 'set gems' do
-          let(:options) { {gems: true, dir: '/somewhere', force: false} }
-          let(:tag_w_options) { foo.send(:default_options, options)}
+          let(:options) { { gems: true, dir: '/somewhere', force: false } }
+          let(:tag_w_options) { foo.send(:default_options, options) }
           it { expect(tag_w_options).to eq options }
         end
 
         describe 'from gli' do
-          let(:income) { { "dir" => "..", :dir => "..", "save" => true, :save => true, "gems" => true, :read  => false } }
-          let(:options) { foo.send(:default_options, income)}
-          let(:expected) { { :dir => "..", :save => true, :gems => true, :read  => false, force: false } }
+          let(:income) { { 'dir' => '..', :dir => '..', 'save' => true, :save => true, 'gems' => true, :read => false } }
+          let(:options) { foo.send(:default_options, income) }
+          let(:expected) { { dir: '..', save: true, gems: true, read: false, force: false } }
 
           it { expect(options).to eq expected }
         end
@@ -125,12 +125,11 @@ describe RbTags do
       describe '#gem_list' do
         let(:bar) { foo.send(:build_gem_list) }
         before do
-          foo.send(:default_options, {gems: false})
+          foo.send(:default_options, gems: false)
         end
         it { expect(bar).to be_a Array }
-        it { expect(bar).to_not include(Dir.getwd)}
+        it { expect(bar).to_not include(Dir.getwd) }
       end
-
     end
   end
 end

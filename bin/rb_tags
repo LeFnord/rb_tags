@@ -1,15 +1,16 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 require 'gli'
 require 'readline'
 
 begin # XXX: Remove this begin/rescue before distributing your app
-require 'rb_tags'
-self.extend RbTags
+  require 'rb_tags'
+  extend RbTags
 rescue LoadError
-  STDERR.puts "In development, you need to use `bundle exec bin/rb_tags` to run your app"
-  STDERR.puts "At install-time, RubyGems will make sure lib, etc. are in the load path"
-  STDERR.puts "Feel free to remove this message from bin/rb_tags now"
+  STDERR.puts 'In development, you need to use `bundle exec bin/rb_tags` to run your app'
+  STDERR.puts 'At install-time, RubyGems will make sure lib, etc. are in the load path'
+  STDERR.puts 'Feel free to remove this message from bin/rb_tags now'
   exit 64
 end
 
@@ -35,18 +36,18 @@ desc 'tags a given directory'
 command :tag do |c|
   # switches
   c.desc 'tag also bundled gems'
-  c.switch [:gems], :default_value => false
+  c.switch [:gems], default_value: false
   c.desc 'forces deleting of tag file before tagging'
-  c.switch [:force], :default_value => false
+  c.switch [:force], default_value: false
 
-  c.action do |global_options,options,args|
+  c.action do |_global_options, options, _args|
     generate(options)
   end
 end
 
 desc 'show esisting tags'
 command :show do |c|
-  c.action do |global_options,options,args|
+  c.action do |_global_options, _options, _args|
     ap tags
     ap tags.length
   end
@@ -54,20 +55,20 @@ end
 
 desc 'search for a tag'
 command :find do |c|
-  c.action do |global_options,options,args|
+  c.action do |_global_options, _options, _args|
     found = complete_tag
     ap found
-    $stdout.print "open [#{(0 ... found.length).to_a.join(',')}]: ".green
+    $stdout.print "open [#{(0...found.length).to_a.join(',')}]: ".green
     what = ''
     while (what += $stdin.getch) !~ /(\w\s)/
-      $stdout.print "#{what}".blue
+      $stdout.print what.to_s.blue
     end
     $stdout.print "\n"
     open what
   end
 end
 
-pre do |global,command,options,args|
+pre do |_global, _command, _options, _args|
   # Pre logic here
   # Return true to proceed; false to abort and not call the
   # chosen command
@@ -76,13 +77,13 @@ pre do |global,command,options,args|
   true
 end
 
-post do |global,command,options,args|
+post do |global, command, options, args|
   # Post logic here
   # Use skips_post before a command to skip this
   # block on that command only
 end
 
-on_error do |exception|
+on_error do |_exception|
   # Error logic here
   # return false to skip default error handling
   true

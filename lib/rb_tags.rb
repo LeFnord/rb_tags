@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # external requirements
 require 'bundler'
 require 'awesome_print'
@@ -28,7 +29,7 @@ module RbTags
   # create or update tag list
   #
 
-  def generate(options={})
+  def generate(options = {})
     default_options(options)
 
     tags = Tags.new(dir: @options[:dir], force: (@options[:gems] || @options[:force]))
@@ -61,7 +62,7 @@ module RbTags
   end
 
   def say_tagging(dir)
-    $stdout.print "tag gem: ".blue
+    $stdout.print 'tag gem: '.blue
     $stdout.print "#{dir}\n".colorize(:yellow_light)
   end
 
@@ -118,9 +119,9 @@ module RbTags
   end
 
   def default_options(options)
-    @options = options.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
+    @options = options.each_with_object({}) { |(k, v), memo| memo[k.to_sym] = v; }
     @options[:dir] = Dir.getwd if @options[:dir].nil? || @options[:dir].empty?
-    @options.merge!(defaults) { |key, opt, default| opt }
+    @options.merge!(defaults) { |_key, opt, _default| opt }
   end
 
   def defaults
@@ -131,7 +132,7 @@ module RbTags
     Dir.getwd
   end
 
-  def opend_found selected: {}, editor: 'mate'
+  def opend_found(selected: {}, editor: 'mate')
     # :nocov:
     file_line = "#{selected[:line]} #{selected[:path]}"
     case editor
@@ -146,5 +147,4 @@ module RbTags
     end
     # :nocov:
   end
-
 end

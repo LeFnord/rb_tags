@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rspec/core/formatters/console_codes'
 
 class Doc
@@ -18,11 +19,11 @@ class Doc
       #{notification.example.exception}\n", :failure)
   end
 
-  def example_pending(notification)
-    @output << RSpec::Core::Formatters::ConsoleCodes.wrap("*", :pending)
+  def example_pending(_notification)
+    @output << RSpec::Core::Formatters::ConsoleCodes.wrap('*', :pending)
   end
 
-  def close(notification)
+  def close(_notification)
     @output << "\n"
   end
 end

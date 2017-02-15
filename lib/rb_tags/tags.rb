@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Tags
   include GenerateTags
   include YamlTasks
@@ -7,8 +8,8 @@ class Tags
   def initialize(dir: Dir.getwd, force: false)
     @dir = check(dir)
 
-    self.delete if force
-    self.read
+    delete if force
+    read
   end
 
   def tag
@@ -17,7 +18,7 @@ class Tags
   end
 
   def add(tags)
-    tags.each do |key,value|
+    tags.each do |key, value|
       if self.tags.key?(key)
         self.tags[key] += value
       else
@@ -36,7 +37,7 @@ class Tags
   end
 
   def delete
-    tag_file = File.join(@dir,".tags")
+    tag_file = File.join(@dir, '.tags')
     FileUtils.rm(tag_file) if File.exist?(tag_file)
   end
 
