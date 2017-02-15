@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rb_tags (0.3.0)
+    rb_tags (0.4.0)
       awesome_print
       bundler
       colorize
